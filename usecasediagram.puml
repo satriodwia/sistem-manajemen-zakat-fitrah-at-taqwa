@@ -1,0 +1,93 @@
+@startuml Sistem Manajemen Zakat
+
+left to right direction
+
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!include ICONURL/common.puml
+!include ICONURL/font-awesome-5/user.puml
+!include ICONURL/font-awesome-5/user_shield.puml
+
+' Styling
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam backgroundColor #FEFEFE
+
+title Use Case Diagram - Sistem Manajemen Zakat
+
+' Actors
+actor "Muzaki" as muzaki
+actor "Admin Zakat" as admin
+actor "Panitia Zakat" as panitia
+
+' System Boundary
+rectangle "Sistem Manajemen Zakat" {
+
+    ' Muzaki Use Cases
+    usecase "Melihat Informasi Zakat" as UC1
+    usecase "Bayar Zakat" as UC2
+    usecase "Lihat Histori Zakat" as UC3
+    usecase "Bayar Sedekah" as UC4
+
+    ' Admin Use Cases
+    usecase "Kelola Transaksi Zakat" as UC5
+    usecase "Konfirmasi Pembayaran" as UC6
+    usecase "Lihat Laporan Keuangan" as UC7
+    usecase "Export Laporan" as UC8
+    usecase "Kelola Muzakki" as UC9
+
+    ' Panitia Use Cases
+    usecase "Input Data Mustahik" as UC10
+    usecase "Edit Data Mustahik" as UC11
+    usecase "Lihat Data Mustahik" as UC12
+
+    ' Shared Use Cases
+    usecase "Login" as UC13
+    usecase "Edit Profil" as UC14
+}
+
+' Relationships - Muzaki
+muzaki --> UC1
+muzaki --> UC2
+muzaki --> UC3
+muzaki --> UC4
+muzaki --> UC13
+muzaki --> UC14
+
+' Relationships - Admin
+admin --> UC5
+admin --> UC6
+admin --> UC7
+admin --> UC8
+admin --> UC9
+admin --> UC13
+admin --> UC14
+
+' Relationships - Panitia
+panitia --> UC10
+panitia --> UC11
+panitia --> UC12
+panitia --> UC13
+panitia --> UC14
+
+' Include & Extend Relationships
+UC2 ..> UC13 : <<include>>
+UC4 ..> UC13 : <<include>>
+UC5 ..> UC13 : <<include>>
+
+UC2 .> UC6 : <<extend>>
+
+' Notes
+note right of UC2
+  Muzaki dapat memilih
+  jenis zakat dan metode
+  pembayaran
+end note
+
+note right of UC7
+  Admin dapat melihat
+  laporan periode tertentu
+  dengan filter
+end note
+
+@enduml
