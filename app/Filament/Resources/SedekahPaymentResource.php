@@ -168,8 +168,7 @@ class SedekahPaymentResource extends Resource
                         'diterima' => 'Diterima',
                         'expired' => 'Expired',
                         'batal' => 'Batal',
-                    ])
-                    ->default('pending'),
+                    ]),
                 
                 Tables\Filters\TernaryFilter::make('is_anonim')
                     ->label('Anonim')

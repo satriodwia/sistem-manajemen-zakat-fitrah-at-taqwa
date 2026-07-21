@@ -5,6 +5,7 @@ namespace App\Services;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Notification;
+use Midtrans\Transaction;
 
 class MidtransService
 {
@@ -99,6 +100,31 @@ class MidtransService
             ],
         ];
     }
+
+    /**
+ * Cek status transaksi langsung ke Midtrans API (dipakai oleh tombol Sync Status)
+ */
+    public function checkTransactionStatus($orderId)
+    {
+        try {
+        $status = Transaction::status($orderId);
+
+        return [
+            'success' => true,
+            'order_id' => $status->order_id,
+            'transaction_status' => $status->transaction_status,
+            'fraud_status' => $status->fraud_status ?? null,
+            'payment_type' => $status->payment_type ?? null,
+            'transaction_id' => $status->transaction_id,
+            'gross_amount' => $status->gross_amount,
+            ];
+        } catch (\Exception $e) {
+        return [
+            'success' => false,
+            'message' => $e->getMessage(),
+        ];
+    }
+}
 
     /**
      * Determine status dari notifikasi Midtrans

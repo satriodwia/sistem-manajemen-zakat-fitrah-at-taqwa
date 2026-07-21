@@ -223,8 +223,7 @@ class ZakatPaymentResource extends Resource
                         'lunas' => 'Lunas',
                         'expired' => 'Expired',
                         'batal' => 'Batal',
-                    ])
-                    ->default('pending'),
+                    ]),
                 
                 Tables\Filters\SelectFilter::make('jenis_bayar')
                     ->options([
