@@ -12,6 +12,7 @@ Route::get('/', function () {
 // Routes untuk halaman publik pembayaran
 Route::get('/zakat', [PaymentController::class, 'zakatForm'])->name('zakat.form');
 Route::get('/sedekah', [PaymentController::class, 'sedekahForm'])->name('sedekah.form');
+Route::get('/cek-pembayaran', [PaymentController::class, 'cekPembayaran'])->name('cek.pembayaran');
 Route::post('/zakat/process', [PaymentController::class, 'processZakat'])->name('zakat.process');
 Route::post('/sedekah/process', [PaymentController::class, 'processSedekah'])->name('sedekah.process');
 Route::get('/payment/success/{orderId}', [PaymentController::class, 'success'])->name('payment.success');

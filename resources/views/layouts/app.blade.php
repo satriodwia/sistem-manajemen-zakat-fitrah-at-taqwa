@@ -47,6 +47,9 @@
                     <a href="{{ route('sedekah.form') }}" class="text-white hover:text-emerald-200 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-heart mr-1"></i> Sedekah
                     </a>
+                    <a href="{{ route('cek.pembayaran') }}" class="text-white hover:text-emerald-200 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <i class="fas fa-search mr-1"></i> Cek Pembayaran
+                    </a>
                     <!-- Dark Mode Toggle -->
                     <button id="darkModeToggle" onclick="toggleDarkMode()" class="text-white hover:text-emerald-200 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-moon"></i>
@@ -76,6 +79,9 @@
                 </a>
                 <a href="{{ route('sedekah.form') }}" class="text-white hover:bg-emerald-800 block px-3 py-2 rounded-md text-base font-medium">
                     <i class="fas fa-heart mr-2"></i> Sedekah
+                </a>
+                <a href="{{ route('cek.pembayaran') }}" class="text-white hover:bg-emerald-800 block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-search mr-2"></i> Cek Pembayaran
                 </a>
                 <button onclick="toggleDarkMode()" class="text-white hover:bg-emerald-800 w-full text-left px-3 py-2 rounded-md text-base font-medium">
                     <i class="fas fa-moon mr-2" id="darkModeToggleMobile"></i> Dark Mode

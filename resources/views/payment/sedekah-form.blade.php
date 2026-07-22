@@ -201,11 +201,17 @@
         submitBtn.disabled = true;
         btnText.textContent = 'Memproses...';
         
-        try {
-            const formData = new FormData(this);
-            
-            // Jika anonim, set nama default
-            if (formData.get('is_anonim') === 'on' || formData.get('is_anonim') === '1') {
+            try {
+                const formData = new FormData(this);
+
+                // Pastikan is_anonim selalu dikirim sebagai '1' atau '0'
+                // (checkbox browser default mengirim 'on', yang TIDAK valid untuk aturan
+                // validasi 'boolean' di Laravel)
+                const isAnonimChecked = document.getElementById('isAnonim').checked;
+                formData.set('is_anonim', isAnonimChecked ? '1' : '0');
+
+                // Jika anonim, set nama default
+            if (isAnonimChecked) {
                 formData.set('nama_donatur', 'Hamba Allah');
             }
             

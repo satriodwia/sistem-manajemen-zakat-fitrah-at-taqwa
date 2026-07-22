@@ -38,6 +38,58 @@ class PaymentController extends Controller
     }
 
     /**
+     * Halaman cek riwayat pembayaran (cari berdasarkan nama atau no. telepon)
+     */
+    public function cekPembayaran(Request $request)
+    {
+        $keyword = $request->query('keyword');
+        $riwayat = collect();
+
+        if ($keyword) {
+            // Cari pembayaran zakat lewat relasi muzakki (nama/no_telepon)
+            $zakat = ZakatPayment::with('muzakki')
+                ->whereHas('muzakki', function ($query) use ($keyword) {
+                    $query->where('nama_lengkap', 'like', "%{$keyword}%")
+                        ->orWhere('no_telepon', 'like', "%{$keyword}%");
+                })
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'jenis' => 'Zakat',
+                        'nama' => $item->muzakki->nama_lengkap,
+                        'kode_transaksi' => $item->kode_transaksi,
+                        'tanggal' => $item->tanggal_bayar,
+                        'nominal' => $item->total_bayar,
+                        'status' => $item->status,
+                    ];
+                });
+
+            // Cari donasi sedekah lewat nama_donatur/no_telepon langsung
+            // (donasi anonim otomatis tidak ketemu karena namanya "Hamba Allah")
+            $sedekah = SedekahPayment::where(function ($query) use ($keyword) {
+                    $query->where('nama_donatur', 'like', "%{$keyword}%")
+                        ->orWhere('no_telepon', 'like', "%{$keyword}%");
+                })
+                ->where('is_anonim', false)
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'jenis' => 'Sedekah',
+                        'nama' => $item->nama_donatur,
+                        'kode_transaksi' => $item->kode_transaksi,
+                        'tanggal' => $item->tanggal_donasi,
+                        'nominal' => $item->nominal,
+                        'status' => $item->status,
+                    ];
+                });
+
+            $riwayat = $zakat->concat($sedekah)->sortByDesc('tanggal')->values();
+        }
+
+        return view('payment.cek-pembayaran', compact('riwayat', 'keyword'));
+    }
+
+    /**
      * Proses pembayaran zakat
      */
     public function processZakat(Request $request)
