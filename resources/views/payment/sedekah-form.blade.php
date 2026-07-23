@@ -154,6 +154,9 @@
 </div>
 
 @push('scripts')
+<!-- Midtrans Snap JS - hanya dimuat di halaman ini karena hanya di sini dibutuhkan -->
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
     // Toggle anonim
     document.getElementById('isAnonim').addEventListener('change', function() {
@@ -201,16 +204,16 @@
         submitBtn.disabled = true;
         btnText.textContent = 'Memproses...';
         
-            try {
-                const formData = new FormData(this);
+        try {
+            const formData = new FormData(this);
 
-                // Pastikan is_anonim selalu dikirim sebagai '1' atau '0'
-                // (checkbox browser default mengirim 'on', yang TIDAK valid untuk aturan
-                // validasi 'boolean' di Laravel)
-                const isAnonimChecked = document.getElementById('isAnonim').checked;
-                formData.set('is_anonim', isAnonimChecked ? '1' : '0');
+            // Pastikan is_anonim selalu dikirim sebagai '1' atau '0'
+            // (checkbox browser default mengirim 'on', yang TIDAK valid untuk aturan
+            // validasi 'boolean' di Laravel)
+            const isAnonimChecked = document.getElementById('isAnonim').checked;
+            formData.set('is_anonim', isAnonimChecked ? '1' : '0');
 
-                // Jika anonim, set nama default
+            // Jika anonim, set nama default
             if (isAnonimChecked) {
                 formData.set('nama_donatur', 'Hamba Allah');
             }

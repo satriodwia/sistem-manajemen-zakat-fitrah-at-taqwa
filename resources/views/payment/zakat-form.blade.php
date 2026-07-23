@@ -142,6 +142,9 @@
 </div>
 
 @push('scripts')
+<!-- Midtrans Snap JS - hanya dimuat di halaman ini karena hanya di sini dibutuhkan -->
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
     // Auto calculate total
     function calculateTotal() {

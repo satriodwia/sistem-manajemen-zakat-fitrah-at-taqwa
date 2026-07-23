@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Pembayaran Zakat & Sedekah')</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Midtrans Snap JS -->
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" 
-            data-client-key="{{ config('midtrans.client_key') }}"></script>
-    
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
     </style>
+
+    @stack('head')
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
@@ -177,5 +174,7 @@
             }
         });
     </script>
+
+    @stack('scripts')
 </body>
 </html>

@@ -119,6 +119,7 @@ class SedekahPaymentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->with(['paymentMethod']))
             ->columns([
                 Tables\Columns\TextColumn::make('kode_transaksi')
                     ->searchable()

@@ -165,6 +165,7 @@ class ZakatPaymentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->with(['muzakki', 'paymentMethod']))
             ->columns([
                 Tables\Columns\TextColumn::make('kode_transaksi')
                     ->searchable()
